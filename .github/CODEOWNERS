@@ -1,0 +1,12 @@
+# Default owner untuk seluruh repo
+* @suryadi346-star
+
+# Backend Core
+/cmd/ @suryadi346-star
+/internal/ @suryadi346-star
+/pkg/ @suryadi346-star
+
+# Infra & Config
+Dockerfile @suryadi346-star
+docker-compose.yml @suryadi346-star
+.github/workflows/ @suryadi346-star

@@ -1,0 +1,28 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Go standar: tabs untuk formatting
+[*.go]
+indent_style = tab
+indent_size = 4
+insert_final_newline = true
+
+# Markdown: biarkan trailing whitespace (untuk line breaks)
+[*.md]
+trim_trailing_whitespace = false
+
+# YAML/JSON: 2 spaces
+[{package.json,.env,*.yml,*.yaml,*.json,*.toml}]
+indent_size = 2
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 2

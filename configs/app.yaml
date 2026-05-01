@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  read_timeout: 10s
+  write_timeout: 60s
+  idle_timeout: 120s
+model:
+  default: "qwen2.5:1.5b-instruct-q4_k_m"
+  fallback: "qwen2.5:0.5b-instruct-q4_k_m"
+  num_ctx: 2048
+  temperature: 0.7
+  top_p: 0.9
+cache:
+  sqlite_path: "./data/chat.db"
+  lru_max_items: 300
+  ttl_minutes: 45
+  sqlite_pragmas:
+    - "cache_size=-8000"
+    - "journal_mode=WAL"
+    - "synchronous=NORMAL"
+    - "busy_timeout=5000"
+    - "foreign_keys=ON"
+system:
+  gogc: 50
+  ollama_host: "127.0.0.1:11434"
+  memory_hard_limit_mb: 3200
+  log_level: "info"

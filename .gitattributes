@@ -1,0 +1,28 @@
+# Auto-detect text & normalize LF
+* text=auto
+
+# Go source
+*.go text eol=lf
+
+# Configs & Docs
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.sh text eol=lf
+
+# Binaries / Assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+
+# GitHub Linguist (pastikan repo terdeteksi sebagai Go)
+*.go linguist-language=Go
+*.mod linguist-language=Go
+*.sum linguist-language=Go

@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports: ["127.0.0.1:11434:11434"]
+    volumes: ["ollama_data:/root/.ollama"]
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_KEEP_ALIVE=30s
+    deploy:
+      resources:
+        limits: { memory: 2500M }
+    networks: ["aero-net"]
+
+  app:
+    build: .
+    container_name: aero-core
+    restart: unless-stopped
+    ports: ["8080:8080"]
+    volumes: ["app_data:/app/data"]
+    environment:
+      - CONFIG_PATH=/app/configs/app.yaml
+      - OLLAMA_HOST=http://ollama:11434
+      - GOGC=50
+      - MALLOC_ARENA_MAX=2
+    depends_on: ["ollama"]
+    deploy:
+      resources:
+        limits: { memory: 800M }
+    networks: ["aero-net"]
+
+volumes:
+  ollama_data:
+  app_data:
+
+networks:
+  aero-net:
+    driver: bridge

@@ -1,0 +1,41 @@
+# Version Control
+.git/
+.gitignore
+.gitattributes
+.github/
+
+# Documentation & Meta
+README.md
+LICENSE
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+
+# Local Dev & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+
+# Data & SQLite (Volume mounted at runtime)
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Docker Files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Build Artifacts (Local)
+/aero-core
+vendor/
+
+# Test & UI (Not needed in backend container)
+scripts/
+public/
+bench.sh

@@ -1,0 +1,64 @@
+# Binaries & Executables
+/aero-core
+/aero-core.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go Build & Test
+*.test
+*.out
+*.prof
+*.log
+coverage.txt
+*.coverprofile
+
+# Dependencies
+/vendor/
+
+# SQLite & Local Data
+/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Docker Overrides
+/docker-compose.override.yml
+/docker-compose.prod.yml
+/docker-compose.dev.yml
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+configs/app.local.yaml
+configs/*.secret.*
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-*
+.project
+.classpath
+.settings/
+
+# OS & Temp
+Desktop.ini
+logs/
+tmp/
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Generated
+/public/dist/
+/scripts/.bench-results/
