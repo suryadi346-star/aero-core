@@ -155,7 +155,7 @@ go build -ldflags="-s -w" -o aero-core ./cmd/server
 ---
 
 ## 📜 Lisensi
-Distribusi di bawah **MIT License**. Bebas digunakan, dimodifikasi, dan didistribusikan untuk keperluan komersial maupun open-source. Lihat file `LICENSE` untuk detail.
+Distribusi di bawah [**MIT License**](https://github.com/suryadi346-star/aero-core/blob/5e5d78011d1648bacef2b1d00133ac89db473389/LICENSE) Bebas digunakan, dimodifikasi, dan didistribusikan untuk keperluan komersial maupun open-source. Lihat file `LICENSE` untuk detail.
 
 ---
 
@@ -175,4 +175,4 @@ Pastikan `go vet ./...` bersih dan footprint RAM tidak melebihi baseline sebelum
 📩 Contact: [@suryadi346-star](https://github.com/suryadi346-star)
 
 
-# aero-core
+- *aero-core*
