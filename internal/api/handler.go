@@ -85,13 +85,25 @@ func (h *ChatHandler) Stream(w http.ResponseWriter, r *http.Request) {
 		case <-ctx.Done():
 			writeSSEEvent(w, flusher, "error", `{"reason":"client_disconnect"}`); return
 		case err := <-errCh:
-			if err != nil { writeSSEEvent(w, flusher, "error", fmt.Sprintf(`{"error":"%s"}`, sanitizeJSON(err.Error()))) }
+			if err != nil {
+				payload, mErr := json.Marshal(map[string]string{"error": err.Error()})
+				if mErr != nil {
+					writeSSEEvent(w, flusher, "error", `{"error":"internal_error"}`)
+				} else {
+					writeSSEEvent(w, flusher, "error", string(payload))
+				}
+			}
 			return
 		case chunk, ok := <-stream:
 			if !ok { streamDone = true; break }
 			if chunk.Done { streamDone = true; break }
 			fullResponse.WriteString(chunk.Content)
-			writeSSEEvent(w, flusher, "chunk", fmt.Sprintf(`{"content":"%s"}`, sanitizeJSON(chunk.Content)))
+			payload, mErr := json.Marshal(map[string]string{"content": chunk.Content})
+			if mErr != nil {
+				writeSSEEvent(w, flusher, "chunk", `{"content":""}`)
+			} else {
+				writeSSEEvent(w, flusher, "chunk", string(payload))
+			}
 		}
 		if streamDone { break }
 	}
@@ -109,7 +121,12 @@ func (h *ChatHandler) Stream(w http.ResponseWriter, r *http.Request) {
 
 func (h *ChatHandler) streamCached(w http.ResponseWriter, f http.Flusher, resp string) {
 	for _, c := range resp {
-		writeSSEEvent(w, f, "chunk", fmt.Sprintf(`{"content":"%s"}`, string(c)))
+		payload, err := json.Marshal(map[string]string{"content": string(c)})
+		if err != nil {
+			writeSSEEvent(w, f, "chunk", `{"content":""}`)
+		} else {
+			writeSSEEvent(w, f, "chunk", string(payload))
+		}
 	}
 	writeSSEEvent(w, f, "done", `{}`)
 }
@@ -122,11 +139,10 @@ func writeSSEEvent(w http.ResponseWriter, f http.Flusher, event, data string) {
 func writeSSEError(w http.ResponseWriter, msg string) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusBadRequest)
-	fmt.Fprintf(w, `{"error":"%s"}`, msg)
-}
-
-func sanitizeJSON(s string) string {
-	b, _ := json.Marshal(s)
-	if len(b) < 2 { return "" }
-	return string(b[1 : len(b)-1])
+	payload, err := json.Marshal(map[string]string{"error": msg})
+	if err != nil {
+		fmt.Fprint(w, `{"error":"internal_error"}`)
+		return
+	}
+	fmt.Fprint(w, string(payload))
 }
