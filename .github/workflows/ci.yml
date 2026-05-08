@@ -18,6 +18,6 @@ jobs:
       - name: Static Analysis
         run: go vet ./...
       - name: Build Binary
-        run: CGO_ENABLED=0 go build -ldflags="-s -w" -o aero-core ./cmd/server
+        run: CGO_ENABLED=0 go build -ldflags="-s -w" -o aero-core ./cmd/server/*
       - name: Verify Binary
         run: file aero-core | grep -q "statically linked"
